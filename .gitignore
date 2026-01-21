@@ -1,0 +1,5 @@
+# Node
+node_modules/
+
+# Testidb
+backend/test-todos.sqlite
