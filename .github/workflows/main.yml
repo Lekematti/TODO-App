@@ -1,0 +1,65 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/setup-node@v4
+
+      # Install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Build
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Validate backend (syntax)
+        run: node --check backend/src/server.js
+
+      # Test
+      - name: Backend tests (palceholder)
+        run: |
+          echo "TODO: lisää backend API -testit (GET/POST/PUT/DELETE)"
+          echo "Esim. Jest / supertest, SQLite testitietokanta jne."
+      - name: Frontend tests (palceholder)
+        run: |
+          echo "TODO: lisää frontend-yksikkötestit (esim. Vitest/Jest)"
+          echo "Tähän asti putki ajaa ilman oikeita testejä."
+
+      # Package
+      - name: Upload frontend build artifacts
+        uses: actions/uploads-artifacts@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+      - name: Upload backend artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-code
+          path: backend
+
+      # Deploy (vain runko, ei oikeaa deployta vielä)
+      - name: Deploy placeholder
+        if: github.ref == 'refs/heads/main'
+        run:  |
+          echo "Tässä vaiheessa voidaan myöhemmin kutsua oikeaa deploy-komentoa."
+          echo "Esim. Azure Web App, Render, Railway. Tai jotain muuta."
+        
+
+        
