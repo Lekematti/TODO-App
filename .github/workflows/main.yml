@@ -34,11 +34,9 @@ jobs:
       # Test
       - name: Backend tests
         run: npm run test:backend
-        
-      - name: Frontend tests (palceholder)
-        run: |
-          echo "TODO: lisää frontend-yksikkötestit (esim. Vitest/Jest)"
-          echo "Tähän asti putki ajaa ilman oikeita testejä."
+
+      - name: Frontend tests
+        run: npm run test:frontend
 
       # Package
       - name: Upload frontend build artifacts
