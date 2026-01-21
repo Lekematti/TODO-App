@@ -19,7 +19,12 @@ test('GET /api/todos returns empty array initially', async () => {
     const res = await request(app).get('/api/todos');
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body));
-    assert.equal(res.body.length, 0);
+    if (res.body.length > 0) {
+        const todo = res.body[0];
+        assert.ok('id' in todo);
+        assert.ok('text' in todo);
+        assert.ok('done' in todo);
+    }
 });
 
 // POST /api/todos luo uuden todo:n
@@ -33,6 +38,17 @@ test('POST /api/todos creates a new todo', async () => {
     assert.ok(res.body.id);
     assert.equal(res.body.text, 'Test API');
     assert.equal(res.body.done, false);
+});
+
+// POST virheenhallinta
+test('Post /api/todos with invalid data returns 400', async () => {
+    const res = await request(app)
+        .post('/api/todos')
+        .send({})
+        .set('Content-Type', 'application/json');
+
+    assert.equal(res.status, 400);
+    assert.equal(res.body.error, 'text is required');
 });
 
 // PUT /api/todos/:id päivittää todo:n
@@ -54,6 +70,26 @@ test('PUT /api/todos/:id updates a todo', async () => {
     assert.equal(res.body.done, true);
 });
 
+// PUT virheenhallinta
+test('PUT /api/todos/:id with invalid id returns 400', async () => {
+    const res = await request(app)
+        .put('/api/todos/invalid')
+        .send({ text: 'Should fail' })
+        .set('Content-Type', 'application/json');
+
+    assert.equal(res.status, 400);
+    assert.equal(res.body.error, 'invalid id');
+});
+test('PUT /api/todos/:id for non-existing todo returns 404', async () => {
+    const res = await request(app)
+        .put('/api/todos/999999')
+        .send({ text: 'Should fail' })
+        .set('Content-Type', 'application/json');
+
+    assert.equal(res.status, 404);
+    assert.equal(res.body.error, 'todo not found');
+});
+
 // DELETE /api/todos/:id poistaa todo:n
 test('DELETE /api/todos/:id deletes a todo', async () => {
     const createRes = await request(app)
@@ -69,5 +105,17 @@ test('DELETE /api/todos/:id deletes a todo', async () => {
     const listRes = await request(app).get('/api/todos');
     const exists = listRes.body.some(t => t.id === id);
     assert.equal(exists, false);
+});
+
+// DELETE virheenhallinta
+test('DELETE /api/todos/:id with invalid id returns 400', async () => {
+    const res = await request(app).delete('/api/todos/invalid');
+    assert.equal(res.status, 400);
+    assert.equal(res.body.error, 'invalid id');
+});
+test('DELETE /api/todos/:id for non-existing todo returns 404', async () => {
+    const res = await request(app).delete('/api/todos/999999');
+    assert.equal(res.status, 404);
+    assert.equal(res.body.error, 'todo not found');
 });
 

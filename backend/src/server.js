@@ -55,3 +55,9 @@ if (process.env.NODE_ENV !== 'test'){
     console.log(`Backend running on http://localhost:${PORT}`);
   });
 }
+
+// yleinen virheenhallinta
+app.use((err, req, res, next) => {
+  console.error('Unhandeled error', err);
+  res.status(500).json({ error: 'internal server error' });
+});
