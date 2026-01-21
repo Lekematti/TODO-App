@@ -1,0 +1,43 @@
+# Mini TODO App
+
+Full-stack mini TODO -sovellus, jossa on Node.js + Express + SQLite (sql.js) -backend ja React + Vite -frontend.
+
+Sovellus näyttää muistilappu-tyylisen TODO-listan, jossa voit lisätä, muokata, poistaa ja merkitä tehtäviä valmiiksi. Kaikki muutokset tallennetaan SQLite-tietokantaan backendin kautta.
+
+## Rakenne
+
+- Root npm-projekti: [package.json](package.json)
+  - `dev:backend` käynnistää backendin
+  - `dev:frontend` käynnistää frontendin
+  - `dev` käynnistää molemmat yhtä aikaa
+- Backend-koodi: [backend/src/server.js](backend/src/server.js), [backend/src/db.js](backend/src/db.js)
+  - Tietokantatiedosto: [backend/todos.sqlite](backend/todos.sqlite) (luodaan automaattisesti)
+- Frontend-koodi: [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/main.jsx](frontend/src/main.jsx), [frontend/src/styles.css](frontend/src/styles.css), [frontend/index.html](frontend/index.html), [frontend/vite.config.mjs](frontend/vite.config.mjs)
+
+## Asennus
+
+1. Asenna riippuvuudet juuresta:
+   - `npm install`
+
+## Kehityskäynnistys
+
+- Käynnistä backend ja frontend yhdellä komennolla juuresta:
+  - `npm run dev`
+
+Tämä ajaa:
+
+- Backend: [http://localhost:4000](http://localhost:4000)
+- Frontend: [http://localhost:5173](http://localhost:5173)
+
+Halutessasi voit myös ajaa erikseen:
+
+- Vain backend: `npm run dev:backend`
+- Vain frontend: `npm run dev:frontend`
+
+## Toiminnot
+
+- Näytä kaikki TODOt (GET `/api/todos`)
+- Lisää uusi TODO (POST `/api/todos`)
+- Muokkaa TODO:a (PUT `/api/todos/:id`)
+- Poista TODO (DELETE `/api/todos/:id`)
+- Klikkaus muistilapun tekstin päällä togglaa valmiiksi/ei-valmiiksi (PUT `done`-kenttään)
