@@ -32,10 +32,9 @@ jobs:
         run: node --check backend/src/server.js
 
       # Test
-      - name: Backend tests (palceholder)
-        run: |
-          echo "TODO: lisää backend API -testit (GET/POST/PUT/DELETE)"
-          echo "Esim. Jest / supertest, SQLite testitietokanta jne."
+      - name: Backend tests
+        run: npm run test:backend
+        
       - name: Frontend tests (palceholder)
         run: |
           echo "TODO: lisää frontend-yksikkötestit (esim. Vitest/Jest)"
