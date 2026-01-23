@@ -43,3 +43,38 @@ Halutessasi voit myös ajaa erikseen:
 - Muokkaa TODO:a (PUT `/api/todos/:id`)
 - Poista TODO (DELETE `/api/todos/:id`)
 - Klikkaus muistilapun tekstin päällä togglaa valmiiksi/ei-valmiiksi (PUT `done`-kenttään)
+
+## Deploy (Netlify + Render)
+
+### Frontend (Netlify)
+
+- Build-komento: `npm run build:frontend`
+- Publish-kansio: `frontend/dist`
+- Environment variable:
+  - `VITE_API_BASE_URL=https://todo-app-backend-vc2f.onrender.com/api`
+
+### Backend (Render)
+
+- Web Service (Node)
+- Root Directory: `backend`
+- Build Command: `npm install`
+- Start Command: `node src/server.js`
+- Free tier sleepaa, joten ensimmäinen pyyntö voi olla hidas.
+
+## CI/CD (GitHub Actions)
+
+Pipeline tekee:
+
+1) Install
+2) Build (frontend)
+3) Backend tests
+4) Frontend tests
+5) Deploy frontend (Netlify)
+6) Deploy backend (Render deploy hook)
+
+Secrets GitHubissa:
+
+- `NETLIFY_AUTH_TOKEN`
+- `NETLIFY_SITE_ID`
+- `VITE_API_BASE_URL`
+- `RENDER_DEPLOY_HOOK`
