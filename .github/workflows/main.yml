@@ -27,6 +27,8 @@ jobs:
       # Build
       - name: Build frontend
         run: npm run build:frontend
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
 
       - name: Validate backend (syntax)
         run: node --check backend/src/server.js
@@ -51,10 +53,17 @@ jobs:
           name: backend-code
           path: backend
 
-      # Deploy (vain runko, ei oikeaa deployta vielä)
-      - name: Deploy placeholder
+      # Deploy 
+      - name: Deploy frontend to Netlify
         if: github.ref == 'refs/heads/main'
-        run:  |
-          echo "Tässä vaiheessa voidaan myöhemmin kutsua oikeaa deploy-komentoa."
-          echo "Esim. Azure Web App, Render, Railway. Tai jotain muuta."
-        
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: ./frontend/dist
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Deploy backend (Render)
+        if: github.ref == 'refs/heads/main'
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
