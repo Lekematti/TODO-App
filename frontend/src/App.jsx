@@ -17,8 +17,8 @@ function App() {
       const data = await res.json();
       setTodos(data);
     } catch (e) {
-      console.error('Virhe haettaessa tehtäviä', e);
-      setError('Virhe haettaessa tehtäviä');
+      console.error('Error fetching todos:', e);
+      setError('Error fetching todos');
     } finally {
       setLoading(false);
     }
@@ -41,7 +41,7 @@ function App() {
       setTodos(prev => [created, ...prev]);
       setNewText('');
     } catch {
-      setError('Virhe lisättäessä tehtävää');
+      setError('Error adding todo');
     }
   }
 
@@ -50,7 +50,7 @@ function App() {
       await fetch(`${API_BASE}/todos/${id}`, { method: 'DELETE' });
       setTodos(prev => prev.filter(t => t.id !== id));
     } catch {
-      setError('Virhe poistettaessa tehtävää');
+      setError('Error deleting todo');
     }
   }
 
@@ -76,7 +76,7 @@ function App() {
       setTodos(prev => prev.map(t => (t.id === id ? updated : t)));
       cancelEdit();
     } catch {
-      setError('Virhe muokattaessa tehtävää');
+      setError('Error editing todo');
     }
   }
 
@@ -90,7 +90,7 @@ function App() {
       const updated = await res.json();
       setTodos(prev => prev.map(t => (t.id === todo.id ? updated : t)));
     } catch {
-      setError('Virhe päivitettäessä tehtävän tilaa');
+      setError('Error updating todo status');
     }
   }
 
@@ -100,14 +100,14 @@ function App() {
       <form className="add-form" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="Uusi tehtävä..."
+          placeholder="New task..."
           value={newText}
           onChange={e => setNewText(e.target.value)}
         />
         <button type="submit">Add</button>
       </form>
       {error && <div className="error">{error}</div>}
-      {loading && <div className="loading">Ladataan...</div>}
+      {loading && <div className="loading">Loading...</div>}
       <div className="notes-grid">
         {todos.map(todo => (
           <div key={todo.id} className={`note ${todo.done ? 'done' : ''}`}>
@@ -130,13 +130,13 @@ function App() {
             <div className="note-actions">
               {editingId === todo.id ? (
                 <>
-                  <button onClick={() => saveEdit(todo.id)}>Tallenna</button>
-                  <button onClick={cancelEdit}>Peruuta</button>
+                  <button onClick={() => saveEdit(todo.id)}>Save</button>
+                  <button onClick={cancelEdit}>Cancel</button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => startEdit(todo)}>Muokkaa</button>
-                  <button onClick={() => handleDelete(todo.id)}>Poista</button>
+                  <button onClick={() => startEdit(todo)}>Edit</button>
+                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
                 </>
               )}
             </div>

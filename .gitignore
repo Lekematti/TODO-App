@@ -3,3 +3,6 @@ node_modules/
 
 # Testidb
 backend/test-todos.sqlite
+
+# Data
+backend/todos.sqlite
