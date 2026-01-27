@@ -17,6 +17,9 @@ export default [
         console: 'readonly',
       },
     },
+    rules: {
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
   },
 
   {
@@ -37,6 +40,7 @@ export default [
     settings: { react: { version: 'detect' } },
     rules: {
       'react/react-in-jsx-scope': 'off',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
 ];

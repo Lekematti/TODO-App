@@ -5,7 +5,9 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_FILE = process.env.DB_FILE || path.join(__dirname, '..', 'todos.sqlite');
+const DB_FILE = process.env.DB_FILE
+  ? path.resolve(process.cwd(), process.env.DB_FILE)
+  : path.join(__dirname, '..', 'todos.sqlite');
 
 const SQL = await initSqlJs();
 

@@ -3,15 +3,15 @@ import assert from 'node:assert/strict';
 import request from 'supertest';
 import fs from 'node:fs';
 import path from 'node:path';
-import { app } from '../src/server.js';
 
+let app;
 const testDbPath = path.join(process.cwd(), 'backend', 'test-todos.sqlite');
 
 // Puhdas testitietokanta ennen ajoa
-test.before(() => {
-    if (fs.existsSync(testDbPath)) {
-        fs.unlinkSync(testDbPath);
-    }
+test.before(async () => {
+  if (fs.existsSync(testDbPath)) fs.unlinkSync(testDbPath);
+  process.env.DB_FILE = testDbPath;
+  ({ app } = await import('../src/server.js'));
 });
 
 // GET /api/todos (aluksi tyhjä lista)

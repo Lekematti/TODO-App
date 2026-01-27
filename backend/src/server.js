@@ -9,9 +9,14 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/todos', (res) => {
-  const todos = getAllTodos();
-  res.json(todos);
+app.get('/api/todos', (req, res) => {
+  try {
+    const todos = getAllTodos();
+    res.json(todos);
+  } catch (err) {
+    console.error('GET /api/todos failed:', err);
+    res.status(500).json({ error: 'internal server error' });
+  }
 });
 
 app.post('/api/todos', (req, res) => {
@@ -50,14 +55,14 @@ app.delete('/api/todos/:id', (req, res) => {
   res.status(204).end();
 });
 
-if (process.env.NODE_ENV !== 'test'){
+// yleinen virheenhallinta
+app.use((err, req, res, _next) => {
+  console.error('Unhandled error', err);
+  res.status(500).json({ error: 'internal server error' });
+});
+
+if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`Backend running on http://localhost:${PORT}`);
   });
 }
-
-// yleinen virheenhallinta
-app.use((err, res) => {
-  console.error('Unhandeled error', err);
-  res.status(500).json({ error: 'internal server error' });
-});
