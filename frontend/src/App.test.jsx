@@ -1,5 +1,7 @@
 import { test, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+// eslint-disable-next-line no-unused-vars
+import App from './App.jsx';
 
 afterEach(() => {
   cleanup();

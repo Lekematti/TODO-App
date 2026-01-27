@@ -23,7 +23,7 @@ export default [
   },
 
   {
-    files: ['frontend/**/*.{js,jsx}'],
+    files: ['frontend/**/*.{js,jsx}', 'frontend/**/*.test.jsx'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
