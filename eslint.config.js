@@ -3,15 +3,19 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
+  js.configs.recommended,
   { ignores: ['frontend/dist/**', 'node_modules/**'] },
 
   {
     files: ['backend/**/*.js', 'backend/**/*.mjs'],
-    languageOptions: { ecmaVersion: 2022, sourceType: 'module' },
-    globals: {
-      process: 'readonly',
-      Buffer: 'readonly',
-      console: 'readonly',
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        process: 'readonly',
+        Buffer: 'readonly',
+        console: 'readonly',
+      },
     },
   },
 
@@ -35,6 +39,4 @@ export default [
       'react/react-in-jsx-scope': 'off',
     },
   },
-
-  js.configs.recommended,
 ];

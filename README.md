@@ -97,7 +97,6 @@ npm run test:backend:coverage
 
 ```bash
 npm run test:frontend:coverage
-```
 
 Coverage-raportit:
 

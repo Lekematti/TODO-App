@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/todos', (req, res) => {
+app.get('/api/todos', (res) => {
   const todos = getAllTodos();
   res.json(todos);
 });
@@ -57,7 +57,7 @@ if (process.env.NODE_ENV !== 'test'){
 }
 
 // yleinen virheenhallinta
-app.use((err, req, res, next) => {
+app.use((err, res) => {
   console.error('Unhandeled error', err);
   res.status(500).json({ error: 'internal server error' });
 });
