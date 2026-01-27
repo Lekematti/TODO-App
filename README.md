@@ -78,3 +78,28 @@ Secrets GitHubissa:
 - `NETLIFY_SITE_ID`
 - `VITE_API_BASE_URL`
 - `RENDER_DEPLOY_HOOK`
+
+## Linttaus
+
+```bash
+npm run lint
+```
+
+## Testikattavuus (Coverage)
+
+**Backend:**
+
+```bash
+npm run test:backend:coverage
+```
+
+**Frontend:**
+
+```bash
+npm run test:frontend:coverage
+```
+
+Coverage-raportit:
+
+- Backend: `coverage/`
+- Frontend: `frontend/coverage/`

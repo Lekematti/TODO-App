@@ -9,5 +9,9 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: './src/setupTests.js',
+    coverage: {
+      reporter: ['text', 'html'],
+      reportDirectory: './coverage',
+    },
   },
 });
