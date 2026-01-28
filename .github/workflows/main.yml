@@ -63,17 +63,17 @@ jobs:
           name: backend-code
           path: backend
 
-      # Deploy 
-      - name: Deploy frontend to Netlify
-        if: github.ref == 'refs/heads/main'
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: ./frontend/dist
-          production-deploy: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      # Deploy pois päältä kun kuluu credejä
+      # - name: Deploy frontend to Netlify
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: nwtgck/actions-netlify@v3.0
+      #   with:
+      #     publish-dir: ./frontend/dist
+      #     production-deploy: true
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      - name: Deploy backend (Render)
-        if: github.ref == 'refs/heads/main'
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      # - name: Deploy backend (Render)
+      #   if: github.ref == 'refs/heads/main'
+      #   run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
