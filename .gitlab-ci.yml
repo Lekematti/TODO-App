@@ -43,8 +43,28 @@ ci:
 cd:
   stage: cd
   needs: [ci]
-  when: manual   # EI ajaudu automaattisesti, vain manuaalisena
+  when: manual   # ei aja automaattisesti, vain kun klikkaat GitLabista
+
   script:
-    - echo "CD job is currently disabled in GitLab (to avoid credit usage)"
-    # - curl -X POST "$RENDER_DEPLOY_HOOK"
-    # - curl -X POST "$NETLIFY_BUILD_HOOK_URL"
+    - echo "Starting manual deploy from GitLab CI..."
+
+    # Frontend: Netlify
+    - |
+      if [ -n "$NETLIFY_AUTH_TOKEN" ] && [ -n "$NETLIFY_SITE_ID" ]; then
+        echo "Triggering Netlify deploy..."
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+          https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/builds
+      else
+        echo "Netlify variables missing, skipping frontend deploy."
+      fi
+
+    # Backend: Render
+    - |
+      if [ -n "$RENDER_DEPLOY_HOOK" ]; then
+        echo "Triggering Render deploy..."
+        curl -X POST "$RENDER_DEPLOY_HOOK"
+      else
+        echo "RENDER_DEPLOY_HOOK missing, skipping backend deploy."
+      fi
