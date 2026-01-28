@@ -33,7 +33,7 @@ jobs:
       - name: Validate backend (syntax)
         run: node --check backend/src/server.js
 
-      #Lint
+      # Lint
       - name: Lint
         run: npm run lint
 
@@ -63,7 +63,15 @@ jobs:
           name: backend-code
           path: backend
 
-      # Deploy pois päältä kun kuluu credejä
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    if: ${{ false }} # CD job disabled to avoid deploy costs
+
+    steps:
+      - name: CD disabled
+        run: echo "CD job is currently disabled"
+
       # - name: Deploy frontend to Netlify
       #   if: github.ref == 'refs/heads/main'
       #   uses: nwtgck/actions-netlify@v3.0

@@ -51,6 +51,28 @@ test_frontend:
       - frontend/coverage/
     expire_in: 1 week
 
+test_backend_coverage:
+  stage: test
+  needs: ['install', 'test_backend']
+  script:
+    - npm run test:backend:coverage
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    expire_in: 1 week
+
+test_frontend_coverage:
+  stage: test
+  needs: ['install', 'test_frontend']
+  script:
+    - npm run test:frontend:coverage
+  artifacts:
+    when: always
+    paths:
+      - frontend/coverage/
+    expire_in: 1 week
+
 build_backend:
   stage: build
   needs: ['install', 'test_backend']
