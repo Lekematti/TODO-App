@@ -1,10 +1,8 @@
 image: node:22
 
 stages:
-  - install
-  - lint
-  - test
-  - build
+  - ci
+  - cd
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -14,81 +12,39 @@ cache:
 variables:
   NODE_ENV: test
 
-install:
-  stage: install
+ci:
+  stage: ci
   script:
+    # Install
     - npm ci || npm install
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1h
 
-lint:
-  stage: lint
-  needs: ['install']
-  script:
+    # Lint
     - npm run lint
-   
-test_backend:
-  stage: test
-  needs: ['install']
-  script:
+
+    # Test
     - npm run test:backend
-  artifacts:
-    when: always
-    paths:
-      - coverage/
-    expire_in: 1 week
-
-test_frontend:
-  stage: test
-  needs: ['install']
-  script:
     - npm run test:frontend
-  artifacts:
-    when: always
-    paths:
-      - frontend/coverage/
-    expire_in: 1 week
-
-test_backend_coverage:
-  stage: test
-  needs: ['install', 'test_backend']
-  script:
-    - npm run test:backend:coverage
-  artifacts:
-    when: always
-    paths:
-      - coverage/
-    expire_in: 1 week
-
-test_frontend_coverage:
-  stage: test
-  needs: ['install', 'test_frontend']
-  script:
     - npm run test:frontend:coverage
+    - npm run test:backend:coverage
+
+    # Build
+    - npm run build:frontend
+    - node --check backend/src/server.js
+
   artifacts:
     when: always
-    paths:
-      - frontend/coverage/
-    expire_in: 1 week
-
-build_backend:
-  stage: build
-  needs: ['install', 'test_backend']
-  script:
-    - node --check backend/src/server.js
-  artifacts:
-    paths:
-      - backend/
-    expire_in: 1 week
-
-build_frontend:
-  stage: build
-  needs: ['install', 'test_frontend']
-  script:
-    - npm run build:frontend
-  artifacts:
     paths:
       - frontend/dist/
+      - backend/
+      - coverage/
+      - frontend/coverage/
     expire_in: 1 week
+
+cd:
+  stage: cd
+  needs: [ci]
+  when: manual   # EI ajaudu automaattisesti, vain manuaalisena
+  script:
+    - echo "CD job is currently disabled in GitLab (to avoid credit usage)"
+    # - curl -X POST "$RENDER_DEPLOY_HOOK"
+    # - curl -X POST "$NETLIFY_BUILD_HOOK_URL"
