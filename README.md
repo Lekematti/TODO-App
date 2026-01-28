@@ -2,6 +2,10 @@
 
 Tämä on osa opinnäytetyötäni jossa teen kolmelle eri alustalle CI/CD putken. Kaikissa alustoissa tulee olemaan sama projekti pohjana. Laitan tänne myös muiden alustojen linkit kun ne ovat tehty.
 
+- Github: (<https://github.com/Lekematti/TODO-App>)
+- Gitlab: (<https://gitlab.com/Lekematti/TODO-App>)
+- Azure: -
+
 Full-stack mini TODO -sovellus, jossa on Node.js + Express + SQLite (sql.js) -backend ja React + Vite -frontend.
 
 Sovellus näyttää muistilappu-tyylisen TODO-listan, jossa voit lisätä, muokata, poistaa ja merkitä tehtäviä valmiiksi. Kaikki muutokset tallennetaan SQLite-tietokantaan backendin kautta.
