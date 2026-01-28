@@ -1,0 +1,72 @@
+image: node:22
+
+stages:
+  - install
+  - lint
+  - test
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+variables:
+  NODE_ENV: test
+
+install:
+  stage: install
+  script:
+    - npm ci || npm install
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1h
+
+lint:
+  stage: lint
+  needs: ['install']
+  script:
+    - npm run lint
+   
+test_backend:
+  stage: test
+  needs: ['install']
+  script:
+    - npm run test:backend
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    expire_in: 1 week
+
+test_frontend:
+  stage: test
+  needs: ['install']
+  script:
+    - npm run test:frontend
+  artifacts:
+    when: always
+    paths:
+      - frontend/coverage/
+    expire_in: 1 week
+
+build_backend:
+  stage: build
+  needs: ['install', 'test_backend']
+  script:
+    - node --check backend/src/server.js
+  artifacts:
+    paths:
+      - backend/
+    expire_in: 1 week
+
+build_frontend:
+  stage: build
+  needs: ['install', 'test_frontend']
+  script:
+    - npm run build:frontend
+  artifacts:
+    paths:
+      - frontend/dist/
+    expire_in: 1 week
