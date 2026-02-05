@@ -20,7 +20,7 @@ stages:
     jobs:
       - job: ci
         pool:
-          vmImage: "ubuntu-latest"
+          name: local-agent
         steps:
           - task: NodeTool@0
             inputs:
@@ -69,7 +69,7 @@ stages:
     jobs:
       - job: deploy_static
         pool:
-          vmImage: "ubuntu-latest"
+          name: local-agent
         steps:
           - download: current
             artifact: frontend-dist
