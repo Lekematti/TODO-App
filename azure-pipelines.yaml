@@ -10,9 +10,6 @@ pr:
 
 variables:
   NODE_VERSION: "20.x"
-  VITE_API_BASE_URL: ""
-  AZURE_STORAGE_ACCOUNT: ""
-  AZURE_STORAGE_KEY: ""
 
 stages:
   - stage: CI
@@ -80,5 +77,13 @@ stages:
             artifact: frontend-dist
 
           - powershell: |
-              az storage blob upload-batch --account-name "$(AZURE_STORAGE_ACCOUNT)" --account-key "$(AZURE_STORAGE_KEY)" --destination '$web' --source "$(Pipeline.Workspace)\frontend-dist" --overwrite true
+              az storage blob upload-batch `
+                --account-name "$env:AZURE_STORAGE_ACCOUNT" `
+                --account-key "$env:AZURE_STORAGE_KEY" `
+                --destination '$web' `
+                --source "$(Pipeline.Workspace)\frontend-dist" `
+                --overwrite true
             displayName: "Upload frontend to $web"
+            env:
+              AZURE_STORAGE_ACCOUNT: $(AZURE_STORAGE_ACCOUNT)
+              AZURE_STORAGE_KEY: $(AZURE_STORAGE_KEY)
