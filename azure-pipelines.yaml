@@ -12,8 +12,7 @@ variables:
   NODE_VERSION: "20.x"
   VITE_API_BASE_URL: ""
   AZURE_STORAGE_ACCOUNT: ""
-  AZURE_STORAGE_RG: ""
-  AZURE_SERVICE_CONNECTION: ""
+  AZURE_STORAGE_KEY: ""
 
 stages:
   - stage: CI
@@ -27,30 +26,36 @@ stages:
               versionSpec: "$(NODE_VERSION)"
             displayName: "Use Node.js $(NODE_VERSION)"
 
-          - script: npm ci
+          - powershell: npm ci
             displayName: "Install dependencies"
 
-          - script: npm run lint
+          - powershell: npm run lint
             displayName: "Lint"
 
-          - script: npm run test:backend
+          - powershell: |
+              $env:NODE_ENV = "test"
+              $env:DB_FILE = "backend/test-todos.sqlite"
+              node --test backend/tests
             displayName: "Backend tests"
 
-          - script: npm run test:frontend
+          - powershell: npm run test:frontend
             displayName: "Frontend tests"
 
-          - script: npm run test:frontend:coverage
+          - powershell: npm run test:frontend:coverage
             displayName: "Frontend coverage"
 
-          - script: npm run test:backend:coverage
+          - powershell: |
+              $env:NODE_ENV = "test"
+              $env:DB_FILE = "backend/test-todos.sqlite"
+              npx c8 node --test backend/tests
             displayName: "Backend coverage"
 
-          - script: npm run build:frontend
+          - powershell: npm run build:frontend
             displayName: "Build frontend"
             env:
               VITE_API_BASE_URL: $(VITE_API_BASE_URL)
 
-          - script: node --check backend/src/server.js
+          - powershell: node --check backend/src/server.js
             displayName: "Validate backend (syntax)"
 
           - task: PublishBuildArtifacts@1
@@ -74,11 +79,6 @@ stages:
           - download: current
             artifact: frontend-dist
 
-          - script: |
-              az storage blob upload-batch \
-                --account-name "$(AZURE_STORAGE_ACCOUNT)" \
-                --account-key "$(AZURE_STORAGE_KEY)" \
-                --destination '$web' \
-                --source "$(Pipeline.Workspace)/frontend-dist" \
-                --overwrite true
+          - powershell: |
+              az storage blob upload-batch --account-name "$(AZURE_STORAGE_ACCOUNT)" --account-key "$(AZURE_STORAGE_KEY)" --destination '$web' --source "$(Pipeline.Workspace)\frontend-dist" --overwrite true
             displayName: "Upload frontend to $web"
