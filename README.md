@@ -4,11 +4,14 @@ Tämä on osa opinnäytetyötäni jossa teen kolmelle eri alustalle CI/CD putken
 
 - Github: (<https://github.com/Lekematti/TODO-App>)
 - Gitlab: (<https://gitlab.com/Lekematti/todo-app>)
-- Azure: -
+- Azure: Ei julkista sivua.
 
 Full-stack mini TODO -sovellus, jossa on Node.js + Express + SQLite (sql.js) -backend ja React + Vite -frontend.
 
 Sovellus näyttää muistilappu-tyylisen TODO-listan, jossa voit lisätä, muokata, poistaa ja merkitä tehtäviä valmiiksi. Kaikki muutokset tallennetaan SQLite-tietokantaan backendin kautta.
+
+![Frontend toimii](docs/images/frontendworks%202026-01-23%20171552.png)
+![Backend toimii](docs/images/backendworks%202026-01-23%20171552.png)
 
 ## Rakenne
 
@@ -131,6 +134,32 @@ GitLab CI/CD -muuttujat:
 - `NETLIFY_AUTH_TOKEN` (Netlify deploy API -token)
 - `NETLIFY_SITE_ID` (Netlify-sivuston ID)
 - `RENDER_DEPLOY_HOOK` (Renderin deploy hook -URL)
+
+### Azure DevOps
+
+Azure DevOps -pipeline löytyy tiedostosta [azure-pipelines.yaml](azure-pipelines.yaml).
+
+Pipeline tekee:
+
+1) Install (Node 20 + `npm ci`)
+2) Lint (`npm run lint`)
+3) Backend tests (`node --test backend/tests`)
+4) Frontend tests (`npm run test:frontend`)
+5) Frontend coverage (`npm run test:frontend:coverage`)
+6) Backend coverage (`npx c8 node --test backend/tests`)
+7) Build frontend (`npm run build:frontend`, käyttää `VITE_API_BASE_URL` -muuttujaa)
+8) Validate backend (syntax, `node --check backend/src/server.js`)
+9) Deploy frontend Azure Storage Static Websiteen (`$web`-container)
+
+Julkaisu:
+
+- Frontend (Azure Static Website): <https://todoapplk.z16.web.core.windows.net/>
+- Backend (Render): <https://todo-app-backend-vc2f.onrender.com/api>
+
+Kuvia ADO-pipelinestä:
+
+![Azure DevOps pipeline](docs/images/ADO-pipeline.png)
+![Azure DevOps pipeline view](docs/images/ADO-pipeline-view.png)
 
 ## Linttaus
 

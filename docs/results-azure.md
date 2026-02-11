@@ -26,8 +26,8 @@
 
 ## Julkaisu
 
-- Frontend-URL: https://todoapplk.z16.web.core.windows.net/
-- Backend API -endpoint: https://todo-app-backend-vc2f.onrender.com/api/todos
+- Frontend-URL: <https://todoapplk.z16.web.core.windows.net/>
+- Backend API -endpoint: <https://todo-app-backend-vc2f.onrender.com/api/todos>
 
 ## Huomiot
 
