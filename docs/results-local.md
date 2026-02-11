@@ -2,22 +2,23 @@
 
 ## Ympäristö
 
-- Päiväys: 21.1.2026
+- Päiväys: 11.2.2026
 - Kone / OS: Win 11
 - Node-versio: v22.14.0
 
 ## Ajetut komennot
 
-- `npm install`
-- `npm run build`
+- `npm run lint`
+- `npm run test:backend`
+- `npm run test:frontend`
+- `npm run build:frontend`
 
-(`npm run dev` on testattu aiemmin, mutta ei ajettu erikseen tässä mittauksessa.)
+## Ajoajat (mitatut)
 
-## Ajoajat (arvio)
-
-- `npm install`: ≈ 1–2 s (uudelleenasennus, riippuvuudet jo välimuistissa)
-- `npm run dev` (ensikäynnistys): ≈ 2–3 s (aiemman havainnon perusteella)
-- `npm run build`: ≈ 1 s (Vite build -tuloste)
+- `npm run lint`: 1.498 s
+- `npm run test:backend`: 1.024 s
+- `npm run test:frontend`: 2.665 s
+- `npm run build:frontend`: 1.322 s
 
 ## Laatu
 

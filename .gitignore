@@ -1,6 +1,9 @@
 # Node
 node_modules/
 
+# Frontend build output
+frontend/dist/
+
 # Testidb
 backend/test-todos.sqlite
 

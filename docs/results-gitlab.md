@@ -20,6 +20,7 @@
 - Install: hitain osa, sisältää Node 22 -kontin käynnistyksen ja riippuvuuksien asennuksen
 - Lint + testit + build: ajetaan samassa `ci`-jobissa, kokonaiskesto kohtuullinen
 - Deploy (`cd`-job): nopea, suorittaa vain kaksi HTTP-kutsua (Netlify + Render)
+- Uusimmat CI-ajot (min:s): 1:01, 1:04, 1:02, 1:04, 1:01, 1:01
 
 ## Artefaktit
 
@@ -31,10 +32,10 @@
 ## Julkaisu
 
 - Frontend-URL: Netlify-sivusto, jota voidaan päivittää GitLabin `cd`-jobilla (manuaalinen ajastus)
-- Backend API -endpoint: Render Web Service, jota voidaan käynnistää GitLabin `cd`-jobilla (tällä hetkellä Render rapotoi tilan "service is suspended")
+- Backend API -endpoint: Render Web Service, jota voidaan käynnistää GitLabin `cd`-jobilla (tällä hetkellä Render raportoi tilan "service is suspended")
 
 ## Huomiot
 
-- Erot lokaalista ajosta: komentojen järjestys ja sisältö vastaavat GitHub Actions -putkea ja lokaalia ajoa (install → lint → testit → build).
 - GitLabin pipeline on rakenteeltaan yhtenäinen GitHubin kanssa (yksi `ci`-vaihe + erillinen manuaalinen `cd`), mutta GitLabin docker+machine-rakenteesta tulee enemmän overheadia ja hitaampi kokonaisaika.
 - `cd`-job on hyödyllinen esimerkki manuaalisesta CD:stä: se voi käynnistää sekä Netlify- että Render-deployn samoilla secretoilla kuin GitHub.
+- Kaikki kolme putkea on nyt toteutettu ja ajettu; uusimmat ajot on kirjattu yllä.

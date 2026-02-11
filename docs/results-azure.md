@@ -18,6 +18,7 @@
 
 - CI: 1 min 4 s
 - CD: 25 s
+- Uusimmat CI-ajot (min:s): 1:15, 0:54
 
 ## Artefaktit
 
@@ -31,5 +32,6 @@
 
 ## Huomiot
 
-- Erot lokaalista ajosta: CI ajetaan self-hosted agentilla, jolloin ajoympäristö on sama kuin omalla koneella.
+- CI ajetaan self-hosted agentilla, jolloin ajoympäristö on sama kuin omalla koneella.
 - Havaitut ongelmat: Microsoft-hosted runnerit eivät olleet käytettävissä ilman parallelism-grantia, joten self-hosted agent tarvittiin.
+- Kaikki kolme putkea on nyt toteutettu ja ajettu; uusimmat ajot on kirjattu yllä.

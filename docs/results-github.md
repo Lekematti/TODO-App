@@ -1,4 +1,4 @@
-# CI/CD-tulokset  GitHub Actions
+# CI/CD-tulokset – GitHub Actions
 
 ## Pipeline-konfiguraatio
 
@@ -22,6 +22,7 @@
 - Test: lyhyt, backend + frontend + coverage samassa jobissa
 - Build: lyhyt, ajetaan testien jälkeen
 - Deploy: ei ajeta (CD-job disabloitu)
+- Uusimmat CI-ajot (s): 27, 23, 20, 21, 31, 26
 
 ## Artefaktit
 
@@ -35,6 +36,6 @@
 
 ## Huomiot
 
-- Erot lokaalista ajosta: CI-putki tekee samat komennot (lint, testit, build) kuin lokaali kehittäjä, mutta yhdessä jobissa.
 - GitHub Actions -ajot ovat edelleen hieman nopeampia kuin GitLabin vastaavat, vaikka rakenne on nyt sama (yksi `ci`-job + erillinen `cd`). Suurin ero tulee GitLabin docker+machine-runnerin ja container image -pullien overheadista.
 - Deploy-steppien olemassaolo dokumentoitu, mutta ne on tietoisesti kytketty pois käytöstä kustannussyistä.
+- Kaikki kolme putkea on nyt toteutettu ja ajettu; uusimmat ajot on kirjattu yllä.
