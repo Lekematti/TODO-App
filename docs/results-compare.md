@@ -2,34 +2,28 @@
 
 ## Yhteenvetotaulukko
 
-- Local (ilman putkea):
-  - Build-kesto: 1.322 s (frontend build)
-  - Testit (ajettu / läpäisty): backend 1.024 s + frontend 2.665 s, läpäisty
-  - Lint: 1.498 s
-  - Manuaaliset vaiheet julkaisussa: kaikki (build, kopiointi, deploy)
-  - Huomioita: ei CI/CD-automaatiota
-
-- GitHub Actions:
-  - Build-kesto: CI ~20–30 s (uusimmat ajot: 27, 23, 20, 21, 31, 26 s)
-  - Testit (ajettu / läpäisty): backend + frontend + coverage, läpäisty
-  - Manuaaliset vaiheet julkaisussa: deploy pois päältä (`cd` estetty)
-  - Huomioita: nopein CI, koska kaikki samassa jobissa hosted-runnerilla
-
-- GitLab CI:
-  - Build-kesto: CI ~1 min (uusimmat ajot: 1:01, 1:04, 1:02, 1:04, 1:01, 1:01)
-  - Testit (ajettu / läpäisty): backend + frontend + coverage, läpäisty
-  - Manuaaliset vaiheet julkaisussa: `cd`-job manuaalinen (Play)
-  - Huomioita: docker+machine lisää overheadia, muuten rakenne sama kuin GitHubissa
-  
-- Azure Pipelines:
-  - Build-kesto: CI 1:15, 0:54 (self-hosted agent)
-  - Testit (ajettu / läpäisty): backend + frontend + coverage, läpäisty
-  - Manuaaliset vaiheet julkaisussa: ei, CD ajaa deployn Azure Storageen
-  - Huomioita: Microsoft-hosted runnerit vaativat parallelism-grantin, self-hosted toimi
+| | Local | GitHub Actions | GitLab CI | Azure Pipelines |
+|---|---|---|---|---|
+| **CI-avg** | ~6.5 s (yhteensä) | 21 s | 1 min 4 s | 1 min 10 s |
+| **CD-avg** | – | 9 s | 46 s | 14 s |
+| **CI-ajot (min:s)** | – | 0:22, 0:19, 0:21 | 1:04, 1:07, 1:02 | 1:22, 0:53, 1:15 |
+| **CD-ajot (min:s)** | – | 0:07, 0:13, 0:06 | 0:46, 0:47, 0:46 | 0:15, 0:12, 0:14 |
+| **Runner** | oma kone | hosted (ubuntu) | SaaS docker+machine | self-hosted (Win) |
+| **Testit** | OK | OK | OK | OK |
+| **Lint** | 1.498 s | sis. CI | sis. CI | sis. CI |
+| **Backend-testit** | 1.024 s | sis. CI | sis. CI | sis. CI |
+| **Frontend-testit** | 2.665 s | sis. CI | sis. CI | sis. CI |
+| **Build** | 1.322 s | sis. CI | sis. CI | sis. CI |
+| **Deploy-kohde** | – | Netlify + Render | Netlify + Render (manuaalinen) | Azure Storage (auto) |
+| **Manuaaliset vaiheet** | kaikki | ei | CD manuaalinen (Play) | ei |
 
 ## Yleisjohtopäätökset
 
 - Kaikilla kolmella alustalla sama CI-komentosarja tuottaa yhtenevät tulokset.
-- GitHub Actions on nopein CI ajoissa; GitLab hitaampi docker-runnerin overheadin vuoksi.
-- Azure Pipelines vaati self-hosted agentin, mutta sen jälkeen CD Azure Storageen onnistui.
-- Julkaisu on GitHubissa pois päältä, GitLabissa manuaalinen ja Azuressa automaattinen (frontend).
+- **GitHub Actions on nopein** CI-ajoissa (~21 s) hosted-runnerin ansiosta.
+- **GitLab CI on hitain** (~1 min 4 s) docker+machine-runnerin overheadin vuoksi. Myös CD on hitain (46 s).
+- **Azure Pipelines** CI (~1 min 10 s) on lähellä GitLabia, mutta CD (14 s) on nopea self-hosted agentilla.
+- GitHub Actions CD (9 s) on nopein deploy-vaihe.
+- GitLab CI CD:ssä overhead tulee container-käynnistyksestä ja artefaktien latauksesta.
+- Paikallisesti samat vaiheet (lint + testit + build) kestävät yhteensä noin 6.5 s ilman mitään CI-overheadia.
+- Azure Pipelines vaati self-hosted agentin, koska Microsoft-hosted runnerit eivät olleet käytettävissä ilman parallelism-grantia.
