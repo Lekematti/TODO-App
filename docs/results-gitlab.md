@@ -35,5 +35,4 @@
 
 ## Huomiot
 
-- GitLabin pipeline on rakenteeltaan yhtenäinen GitHubin kanssa (yksi `ci`-vaihe + erillinen manuaalinen `cd`), mutta GitLabin docker+machine-rakenteesta tulee enemmän overheadia ja hitaampi kokonaisaika.
-- `cd`-job on hyödyllinen esimerkki manuaalisesta CD:stä: se voi käynnistää sekä Netlify- että Render-deployn samoilla secretoilla kuin GitHub.
+- GitLabin pipeline on rakenteeltaan yhtenäinen GitHubin kanssa (yksi `ci`-vaihe + `cd`-vaihe erona on että GiLabissa se on manuaalinen), mutta GitLabin docker+machine-rakenteesta tulee enemmän overheadia ja hitaampi kokonaisaika.
