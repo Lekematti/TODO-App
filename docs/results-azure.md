@@ -14,7 +14,7 @@
 - Package: OK
 - Deploy: OK (frontend Azure Storage Static Website)
 
-## Ajoajat (viimeisin ajokerta)
+## Ajoajat (viimeisimmät ajokerrat)
 
 - CI-avg: 1 min 10 s
 - CD-avg: 14 s

@@ -16,11 +16,10 @@
 
 ## Ajoajat (viimeisimmät ajokerrat)
 
-- Kokonaiskesto: ~1 min (esim. 55 s ja 1 min 3 s kahdella ajolla, GitLab SaaS -runner, docker+machine)
-- Install: hitain osa, sisältää Node 22 -kontin käynnistyksen ja riippuvuuksien asennuksen
-- Lint + testit + build: ajetaan samassa `ci`-jobissa, kokonaiskesto kohtuullinen
-- Deploy (`cd`-job): nopea, suorittaa vain kaksi HTTP-kutsua (Netlify + Render)
-- Uusimmat CI-ajot (min:s): 1:01, 1:04, 1:02, 1:04, 1:01, 1:01
+- CI-avg: 1 min 4 s
+- CD-avg: 46 s
+- CI-ajot (min:s): 1:04, 1:07, 1:02
+- CD-ajot (min:s): 0:46, 0:47, 0:46
 
 ## Artefaktit
 
@@ -38,4 +37,3 @@
 
 - GitLabin pipeline on rakenteeltaan yhtenäinen GitHubin kanssa (yksi `ci`-vaihe + erillinen manuaalinen `cd`), mutta GitLabin docker+machine-rakenteesta tulee enemmän overheadia ja hitaampi kokonaisaika.
 - `cd`-job on hyödyllinen esimerkki manuaalisesta CD:stä: se voi käynnistää sekä Netlify- että Render-deployn samoilla secretoilla kuin GitHub.
-- Kaikki kolme putkea on nyt toteutettu ja ajettu; uusimmat ajot on kirjattu yllä.
