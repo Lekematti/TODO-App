@@ -66,22 +66,23 @@ jobs:
   cd:
     runs-on: ubuntu-latest
     needs: ci
-    if: ${{ false }} # CD job disabled to avoid deploy costs
+    if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: CD disabled
-        run: echo "CD job is currently disabled"
+      - name: Download frontend artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
 
-      # - name: Deploy frontend to Netlify
-      #   if: github.ref == 'refs/heads/main'
-      #   uses: nwtgck/actions-netlify@v3.0
-      #   with:
-      #     publish-dir: ./frontend/dist
-      #     production-deploy: true
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Deploy frontend to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: ./frontend/dist
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      # - name: Deploy backend (Render)
-      #   if: github.ref == 'refs/heads/main'
-      #   run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Deploy backend (Render)
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
