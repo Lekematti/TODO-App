@@ -16,9 +16,10 @@
 
 ## Ajoajat (viimeisin ajokerta)
 
-- CI: 1 min 4 s
-- CD: 25 s
-- Uusimmat CI-ajot (min:s): 1:15, 0:54
+- CI-avg: 1 min 10 s
+- CD-avg: 14 s
+- CI-ajot (min:s): 1:22, 0:53, 1:15
+- CD-ajot (min:s): 0:15, 0:12, 0:14
 
 ## Artefaktit
 
