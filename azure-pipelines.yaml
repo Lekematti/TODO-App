@@ -87,3 +87,12 @@ stages:
             env:
               AZURE_STORAGE_ACCOUNT: $(AZURE_STORAGE_ACCOUNT)
               AZURE_STORAGE_KEY: $(AZURE_STORAGE_KEY)
+
+      - job: deploy_backend
+        pool:
+          name: local-agent
+        steps:
+          - powershell: Invoke-RestMethod -Uri "$env:RENDER_DEPLOY_HOOK" -Method Post
+            displayName: "Deploy backend (Render)"
+            env:
+              RENDER_DEPLOY_HOOK: $(RENDER_DEPLOY_HOOK)
