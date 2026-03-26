@@ -1,6 +1,6 @@
 # Mini TODO App
 
-Tämä on osa opinnäytetyötäni jossa teen kolmelle eri alustalle CI/CD putken. Kaikissa alustoissa tulee olemaan sama projekti pohjana. Laitan tänne myös muiden alustojen linkit kun ne ovat tehty.
+Tämä on osa opinnäytetyötäni jossa teen kolmelle eri alustalle CI/CD putken. Kaikissa alustoissa tulee olemaan sama projekti pohjana.
 
 - Github: (<https://github.com/Lekematti/TODO-App>)
 - Gitlab: (<https://gitlab.com/Lekematti/todo-app>)

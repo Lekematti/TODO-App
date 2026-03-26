@@ -14,12 +14,17 @@
 - Package (artefaktien upload): OK
 - Deploy (Netlify + Render, `cd`-job)
 
-## Ajoajat (viimeisimmät ajokerrat)
+## Ajoajat (Vanhat)
 
 - CI-avg: 21 s
 - CD-avg: 9 s
 - CI-ajot (min:s): 0:22, 0:19, 0:21
 - CD-ajot (min:s): 0:07, 0:13, 0:06
+
+## Ajoajat (Viimeisin CI)
+
+CI-avg: 0:23
+CI-ajot (min:s): 0:22, 0:20, 0:23, 0:23, 0:25
 
 ## Artefaktit
 

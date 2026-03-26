@@ -14,12 +14,17 @@
 - Package: sisältyy samaan `ci`-jobiin (artefaktien talletus): OK
 - Deploy (Netlify + Render, `cd`-job): OK (manuaalinen ajo; Netlify-build käynnistyy, Render vastaa "service is suspended")
 
-## Ajoajat (viimeisimmät ajokerrat)
+## Ajoajat (Vanhat)
 
 - CI-avg: 1 min 4 s
 - CD-avg: 46 s
 - CI-ajot (min:s): 1:04, 1:07, 1:02
 - CD-ajot (min:s): 0:46, 0:47, 0:46
+
+## Ajoajat (Viimeisin CI)
+
+CI-avg: 1:03
+CI-ajot (min:s): 1:07, 1:03, 1:02, 0:58, 1:05
 
 ## Artefaktit
 
