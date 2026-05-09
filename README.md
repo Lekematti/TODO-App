@@ -5,8 +5,9 @@ Tämä on osa opinnäytetyötäni jossa teen kolmelle eri alustalle CI/CD putken
 - Github: (<https://github.com/Lekematti/TODO-App>)
 - Gitlab: (<https://gitlab.com/Lekematti/todo-app>)
 - Azure: Ei julkista sivua.
-
-Full-stack mini TODO -sovellus, jossa on Node.js + Express + SQLite (sql.js) -backend ja React + Vite -frontend.
+- Netlyfy: (<https://frolicking-rolypoly-6cc09a.netlify.app/>) (Ei toimminnallisuustta, koska Render suspended)
+- Render: (<https://todo-app-backend-vc2f.onrender.com/api/todos>) (Suspended kulujen estämiseksi)
+Full-stack mini TODO -sovellus, jossa on Node.js + Express -backend, React + Vite -frontend ja SQLite tietokanta.
 
 Sovellus näyttää muistilappu-tyylisen TODO-listan, jossa voit lisätä, muokata, poistaa ja merkitä tehtäviä valmiiksi. Kaikki muutokset tallennetaan SQLite-tietokantaan backendin kautta.
 
@@ -153,7 +154,7 @@ Pipeline tekee:
 
 Julkaisu:
 
-- Frontend (Azure Static Website): <https://todoapplk.z16.web.core.windows.net/>
+- Frontend (Azure Static Website): <https://todoapplk.z16.web.core.windows.net/> (Krediitit vanhentuneet, ei toiminnassa.)
 - Backend (Render): <https://todo-app-backend-vc2f.onrender.com/api>
 
 Kuvia ADO-pipelinestä:
