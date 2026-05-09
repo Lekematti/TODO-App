@@ -1,12 +1,13 @@
 # Mini TODO App
 
-Tämä on osa opinnäytetyötäni jossa tein kolmelle eri alustalle CI/CD putken. Kaikissa alustoissa on tämä projekti pohjana.
+Tämä on osa opinnäytetyötäni jossa tein kolmelle eri alustalle CI/CD putket. Kaikissa alustoissa on tämä projekti pohjana.
 
 - Github: (<https://github.com/Lekematti/TODO-App>)
 - Gitlab: (<https://gitlab.com/Lekematti/todo-app>)
 - Azure: Ei julkista sivua.
 - Netlyfy: (<https://frolicking-rolypoly-6cc09a.netlify.app/>) (Ei toimminnallisuustta, koska Render suspended)
 - Render: (<https://todo-app-backend-vc2f.onrender.com/api/todos>) (Suspended kulujen estämiseksi)
+
 Full-stack mini TODO -sovellus, jossa on Node.js + Express -backend, React + Vite -frontend ja SQLite tietokanta.
 
 Sovellus näyttää muistilappu-tyylisen TODO-listan, jossa voit lisätä, muokata, poistaa ja merkitä tehtäviä valmiiksi. Kaikki muutokset tallennetaan SQLite-tietokantaan backendin kautta.
