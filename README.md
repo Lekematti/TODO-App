@@ -2,6 +2,8 @@
 
 Tämä on osa opinnäytetyötäni jossa tein kolmelle eri alustalle CI/CD putket. Kaikissa alustoissa on tämä projekti pohjana.
 
+Opinnäytetyö (Theseus): (<https://urn.fi/URN:NBN:fi:amk-202605049059>)
+
 - Github: (<https://github.com/Lekematti/TODO-App>)
 - Gitlab: (<https://gitlab.com/Lekematti/todo-app>)
 - Azure: Ei julkista sivua.
